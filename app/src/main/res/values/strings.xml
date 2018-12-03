@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ExamenMonitor</string>
+    <string name="click_the_button_to_scan_your_card">Click the button to scan your card</string>
+    <string name="Scan">Scan</string>
 </resources>
