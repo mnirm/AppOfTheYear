@@ -12,3 +12,7 @@ Doel:
 Examen binnen => scant
 Examen afgeven => scant
 
+Code:
+
+Naming activities: ExampleActivity
+Naming strings: example_button_test
