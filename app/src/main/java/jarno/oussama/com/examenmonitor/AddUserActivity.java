@@ -6,9 +6,13 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import jarno.oussama.com.examenmonitor.Database.StudentDatabase;
+import jarno.oussama.com.examenmonitor.Database.Students;
 
 public class AddUserActivity extends AppCompatActivity {
     TextView nfcStatusTextView;
@@ -18,7 +22,7 @@ public class AddUserActivity extends AppCompatActivity {
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
     String nfcID;
-
+    StudentDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,8 @@ public class AddUserActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        db = StudentDatabase.getDatabase(this);
+
     }
     @Override
     protected void onResume() {
@@ -43,7 +49,6 @@ public class AddUserActivity extends AppCompatActivity {
             if (!nfcAdapter.isEnabled()) {
                 showWirelessSettings();
             }
-
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
         }
     }
@@ -60,8 +65,6 @@ public class AddUserActivity extends AppCompatActivity {
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)){
-
-            byte[] empty = new byte[0];
             byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
             enableInputs();
             nfcID = new String(ByteArrayToHexString(id));
@@ -113,6 +116,22 @@ public class AddUserActivity extends AppCompatActivity {
         studentNumberEditText.setFocusable(true);
         studentNumberEditText.setCursorVisible(true);
         studentNumberEditText.setFocusableInTouchMode(true);
+
+    }
+
+    public void AddUserTtoDB(View view) {
+
+        final Students student = new Students();
+        student.setName(nameEditText.getText().toString());
+        student.setLastName(lastNameEditText.getText().toString());
+        student.setStudentNumber(studentNumberEditText.getText().toString());
+        student.setStudentCardId(nfcID);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                db.DaoAccess().insertOnlySingleStudent(student);
+            }
+        });
 
     }
 }
