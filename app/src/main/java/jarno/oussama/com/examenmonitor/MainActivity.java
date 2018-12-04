@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void AddUserActivity(View view) {
-        Intent intentAdduser = new Intent(this, AddUser.class);
+        Intent intentAdduser = new Intent(this, AddUserActivity.class);
         startActivity(intentAdduser);
     }
 }
