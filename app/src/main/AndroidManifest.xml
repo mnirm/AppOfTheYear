@@ -32,7 +32,15 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddUser"></activity>
+        <activity
+            android:name=".AddUser"
+            android:label="@string/label_add_user"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jarno.oussama.com.examenmonitor.MainActivity"
+                />
+        </activity>
     </application>
 
 </manifest>

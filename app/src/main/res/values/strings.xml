@@ -2,4 +2,6 @@
     <string name="app_name">ExamenMonitor</string>
     <string name="Hold_your_card_against_the_reader_to_scan">Hold your card against the reader to scan</string>
     <string name="Scan">Scan</string>
+    <string name="button_add_user">Add user</string>
+    <string name="label_add_user">Users</string>
 </resources>
