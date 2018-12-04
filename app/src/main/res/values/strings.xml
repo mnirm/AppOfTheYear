@@ -2,6 +2,12 @@
     <string name="app_name">ExamenMonitor</string>
     <string name="Hold_your_card_against_the_reader_to_scan">Hold your card against the reader to scan</string>
     <string name="Scan">Scan</string>
+    <string name="add_user_title">Voeg een student toe</string>
+    <string name="name_placeholder">Naam</string>
+    <string name="lastname_placeholder">Achternaam</string>
+    <string name="s_number_placeholder">S nummer</string>
+    <string name="add_user">Voeg Toe</string>
+    <string name="scan_card_first">scan eerst de studenten kaart</string>
     <string name="button_add_user">Add user</string>
     <string name="label_add_user">Users</string>
 </resources>
