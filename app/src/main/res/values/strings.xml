@@ -8,4 +8,6 @@
     <string name="s_number_placeholder">S nummer</string>
     <string name="add_user">Voeg Toe</string>
     <string name="scan_card_first">scan eerst de studenten kaart</string>
+    <string name="button_add_user">Add user</string>
+    <string name="label_add_user">Users</string>
 </resources>
