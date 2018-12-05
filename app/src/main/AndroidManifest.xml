@@ -41,6 +41,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jarno.oussama.com.examenmonitor.MainActivity" />
         </activity>
+        <activity
+            android:name=".StudentsListActivity"
+            android:label="@string/title_activity_students_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import jarno.oussama.com.examenmonitor.Database.Student;
 import jarno.oussama.com.examenmonitor.Database.StudentDatabase;
-import jarno.oussama.com.examenmonitor.Database.Students;
 
 public class AddUserActivity extends AppCompatActivity {
     TextView nfcStatusTextView;
@@ -23,6 +23,7 @@ public class AddUserActivity extends AppCompatActivity {
     PendingIntent pendingIntent;
     String nfcID;
     StudentDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,7 @@ public class AddUserActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.editTextSurname);
         lastNameEditText = findViewById(R.id.editTextLastname);
         studentNumberEditText = findViewById(R.id.editTextSNummer);
+        StudentDatabase db = StudentDatabase.getDatabase(this);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null){
             Toast.makeText(this,"you dont have a nfc reader", Toast.LENGTH_SHORT).show();
@@ -39,7 +41,7 @@ public class AddUserActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        db = StudentDatabase.getDatabase(this);
+
 
     }
     @Override
@@ -120,19 +122,14 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     public void AddUserTtoDB(View view) {
-
-        final Students student = new Students();
-        student.setName(nameEditText.getText().toString());
+        Student student = new Student();
+        student.setFirstName(nameEditText.getText().toString());
         student.setLastName(lastNameEditText.getText().toString());
         student.setStudentNumber(studentNumberEditText.getText().toString());
-        student.setStudentCardId(nfcID);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                db.DaoAccess().insertOnlySingleStudent(student);
-            }
-        });
-
+        student.setCardIdNumber(nfcID);
+        db.Instance.StudentDao().insertStudent(student);
+        startActivity(new Intent(this, MainActivity.class));
+        Toast.makeText(this,student.getFirstName() + " is toegevoegd",Toast.LENGTH_SHORT).show();
     }
 }
 
