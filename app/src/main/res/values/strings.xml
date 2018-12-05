@@ -10,4 +10,5 @@
     <string name="scan_card_first">scan eerst de studenten kaart</string>
     <string name="button_add_user">Add user</string>
     <string name="label_add_user">Users</string>
+    <string name="add_user_subtext">Voeg een student toe aan de database</string>
 </resources>

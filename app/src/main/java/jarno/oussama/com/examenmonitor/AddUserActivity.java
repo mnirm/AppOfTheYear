@@ -6,6 +6,7 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ public class AddUserActivity extends AppCompatActivity {
         studentNumberEditText = findViewById(R.id.editTextSNummer);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null){
-            Toast.makeText(this,"you dont have a nfc reader", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Your device doesn't have an NFC reader", Toast.LENGTH_SHORT).show();
             return;
         }
         pendingIntent = PendingIntent.getActivity(this, 0,
@@ -115,6 +116,8 @@ public class AddUserActivity extends AppCompatActivity {
         studentNumberEditText.setFocusableInTouchMode(true);
 
     }
+
+
 }
 
     
