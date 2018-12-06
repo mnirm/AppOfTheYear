@@ -1,13 +1,9 @@
 package jarno.oussama.com.examenmonitor;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,5 +16,9 @@ public class MainActivity extends AppCompatActivity {
     public void AddUserActivity(View view) {
         Intent intentAdduser = new Intent(this, AddUserActivity.class);
         startActivity(intentAdduser);
+    }
+    public void StudentsListActivity(View view) {
+        Intent StudentList = new Intent(this, StudentsListActivity.class);
+        startActivity(StudentList);
     }
 }
