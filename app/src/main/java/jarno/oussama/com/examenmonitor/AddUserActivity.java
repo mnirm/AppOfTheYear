@@ -35,7 +35,7 @@ public class AddUserActivity extends AppCompatActivity {
         StudentDatabase db = StudentDatabase.getDatabase(this);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null){
-            Toast.makeText(this,"you dont have a nfc reader", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Your device doesn't have an NFC reader", Toast.LENGTH_SHORT).show();
             return;
         }
         pendingIntent = PendingIntent.getActivity(this, 0,
@@ -121,6 +121,7 @@ public class AddUserActivity extends AppCompatActivity {
 
     }
 
+
     public void AddUserTtoDB(View view) {
         Student student = new Student();
         student.setFirstName(nameEditText.getText().toString());
@@ -131,6 +132,7 @@ public class AddUserActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
         Toast.makeText(this,student.getFirstName() + " is toegevoegd",Toast.LENGTH_SHORT).show();
     }
+
 }
 
     
