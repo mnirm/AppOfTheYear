@@ -12,4 +12,6 @@
     <string name="label_add_user">Users</string>
     <string name="add_user_subtext">Voeg een student toe aan de database</string>
     <string name="title_activity_students_list">Students</string>
+    <string name="button_student_list">Studenten lijst</string>
+    <string name="student_list_subtext">Toon de lijst met studenten</string>
 </resources>
