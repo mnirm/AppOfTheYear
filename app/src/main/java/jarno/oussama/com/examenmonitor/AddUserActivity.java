@@ -37,6 +37,10 @@ public class AddUserActivity extends AppCompatActivity {
         if (nfcAdapter == null){
             Toast.makeText(this,"Your device doesn't have an NFC reader", Toast.LENGTH_SHORT).show();
             return;
+        }else{
+            if (!nfcAdapter.isEnabled()) {
+                showWirelessSettings();
+            }
         }
         pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
@@ -48,9 +52,6 @@ public class AddUserActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (nfcAdapter != null) {
-            if (!nfcAdapter.isEnabled()) {
-                showWirelessSettings();
-            }
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
         }
     }
