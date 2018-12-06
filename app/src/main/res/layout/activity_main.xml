@@ -69,7 +69,7 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circlebackgroundaccent"
-                    android:src="@drawable/ic_face_black_24dp"
+                    android:src="@drawable/ic_view_module_black_24dp"
                     android:padding="10dp">
                 </ImageView>
                 <TextView
