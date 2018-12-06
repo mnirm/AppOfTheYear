@@ -2,6 +2,7 @@ package jarno.oussama.com.examenmonitor.Database;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
@@ -13,6 +14,6 @@ public interface StudentDao {
     @Insert
     void insertAllStudents(Student... student);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertStudent(Student student);
 }

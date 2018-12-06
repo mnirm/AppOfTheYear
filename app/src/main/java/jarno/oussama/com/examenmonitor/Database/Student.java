@@ -2,15 +2,21 @@ package jarno.oussama.com.examenmonitor.Database;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity
+@Entity(indices = {@Index(value = "card_id", unique = true)})
 public class Student {
+
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "student_number")
     private String StudentNumber;
+
+    @NonNull
+    @ColumnInfo(name = "card_id")
+    private String CardIdNumber;
 
     @NonNull
     @ColumnInfo(name = "first_name")
@@ -20,9 +26,7 @@ public class Student {
     @ColumnInfo(name = "last_name")
     private String LastName;
 
-    @NonNull
-    @ColumnInfo(name = "card_id")
-    private String CardIdNumber;
+
 
     public Student() {
 
