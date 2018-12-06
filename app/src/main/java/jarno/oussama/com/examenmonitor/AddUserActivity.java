@@ -6,9 +6,13 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import jarno.oussama.com.examenmonitor.Database.Student;
+import jarno.oussama.com.examenmonitor.Database.StudentDatabase;
 
 public class AddUserActivity extends AppCompatActivity {
     TextView nfcStatusTextView;
@@ -18,6 +22,7 @@ public class AddUserActivity extends AppCompatActivity {
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
     String nfcID;
+    StudentDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +32,17 @@ public class AddUserActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.editTextSurname);
         lastNameEditText = findViewById(R.id.editTextLastname);
         studentNumberEditText = findViewById(R.id.editTextSNummer);
+        StudentDatabase db = StudentDatabase.getDatabase(this);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null){
-            Toast.makeText(this,"you dont have a nfc reader", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Your device doesn't have an NFC reader", Toast.LENGTH_SHORT).show();
             return;
         }
         pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+
     }
     @Override
     protected void onResume() {
@@ -43,7 +51,6 @@ public class AddUserActivity extends AppCompatActivity {
             if (!nfcAdapter.isEnabled()) {
                 showWirelessSettings();
             }
-
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
         }
     }
@@ -60,8 +67,6 @@ public class AddUserActivity extends AppCompatActivity {
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)){
-
-            byte[] empty = new byte[0];
             byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
             enableInputs();
             nfcID = new String(ByteArrayToHexString(id));
@@ -115,6 +120,19 @@ public class AddUserActivity extends AppCompatActivity {
         studentNumberEditText.setFocusableInTouchMode(true);
 
     }
+
+
+    public void AddUserTtoDB(View view) {
+        Student student = new Student();
+        student.setFirstName(nameEditText.getText().toString());
+        student.setLastName(lastNameEditText.getText().toString());
+        student.setStudentNumber(studentNumberEditText.getText().toString());
+        student.setCardIdNumber(nfcID);
+        db.Instance.StudentDao().insertStudent(student);
+        startActivity(new Intent(this, MainActivity.class));
+        Toast.makeText(this,student.getFirstName() + " is toegevoegd",Toast.LENGTH_SHORT).show();
+    }
+
 }
 
     

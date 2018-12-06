@@ -3,7 +3,6 @@
     package="jarno.oussama.com.examenmonitor">
 
     <uses-permission android:name="android.permission.NFC" />
-
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
@@ -34,14 +33,17 @@
         </activity>
         <activity
             android:name=".AddUserActivity"
-            android:value="jarno.oussama.com.examenmonitor.MainActivity"
             android:label="@string/label_add_user"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:value="jarno.oussama.com.examenmonitor.MainActivity">
             <meta-data
-                  android:name="android.support.PARENT_ACTIVITY"
-                  android:value="jarno.oussama.com.examenmonitor.MainActivity"
-                />
-                </activity>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jarno.oussama.com.examenmonitor.MainActivity" />
+        </activity>
+        <activity
+            android:name=".StudentsListActivity"
+            android:label="@string/title_activity_students_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
