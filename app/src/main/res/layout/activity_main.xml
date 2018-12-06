@@ -41,17 +41,20 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/button_add_user"
                 android:textColor="@color/darkGrey"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/lightGrey"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:background="@color/lightGrey" />
+
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="46dp"
                 android:gravity="center"
-                android:text="@string/add_user_subtext"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:text="@string/add_user_subtext" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView

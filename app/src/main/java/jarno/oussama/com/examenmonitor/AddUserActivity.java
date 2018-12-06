@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class AddUserActivity extends AppCompatActivity {
     EditText nameEditText;
     EditText lastNameEditText;
     EditText studentNumberEditText;
+    Button addButton;
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
     String nfcID;
@@ -32,6 +34,7 @@ public class AddUserActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.editTextSurname);
         lastNameEditText = findViewById(R.id.editTextLastname);
         studentNumberEditText = findViewById(R.id.editTextSNummer);
+        addButton = findViewById(R.id.buttonAddUser);
         StudentDatabase db = StudentDatabase.getDatabase(this);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null){
@@ -45,8 +48,6 @@ public class AddUserActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
-
     }
     @Override
     protected void onResume() {
@@ -69,9 +70,8 @@ public class AddUserActivity extends AppCompatActivity {
                 || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)){
             byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
-            enableInputs();
+            addButton.setEnabled(true);
             nfcID = new String(ByteArrayToHexString(id));
-
         }
         nfcStatusTextView.setText(nfcID);
     }
@@ -106,22 +106,6 @@ public class AddUserActivity extends AppCompatActivity {
         Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
         startActivity(intent);
     }
-    private void enableInputs(){
-        nameEditText.setClickable(true);
-        nameEditText.setFocusable(true);
-        nameEditText.setCursorVisible(true);
-        nameEditText.setFocusableInTouchMode(true);
-        lastNameEditText.setClickable(true);
-        lastNameEditText.setFocusable(true);
-        lastNameEditText.setCursorVisible(true);
-        lastNameEditText.setFocusableInTouchMode(true);
-        studentNumberEditText.setClickable(true);
-        studentNumberEditText.setFocusable(true);
-        studentNumberEditText.setCursorVisible(true);
-        studentNumberEditText.setFocusableInTouchMode(true);
-
-    }
-
 
     public void AddUserTtoDB(View view) {
         Student student = new Student();
