@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class AddUserActivity extends AppCompatActivity {
     EditText nameEditText;
     EditText lastNameEditText;
     EditText studentNumberEditText;
+    View view;
     Button addButton;
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
@@ -35,10 +37,11 @@ public class AddUserActivity extends AppCompatActivity {
         lastNameEditText = findViewById(R.id.editTextLastname);
         studentNumberEditText = findViewById(R.id.editTextSNummer);
         addButton = findViewById(R.id.buttonAddUser);
+        view = findViewById(android.R.id.content);
         StudentDatabase db = StudentDatabase.getDatabase(this);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null){
-            Toast.makeText(this,"Your device doesn't have an NFC reader", Toast.LENGTH_SHORT).show();
+            Snackbar.make(view,"Your device doesn't have an NFC reader",Snackbar.LENGTH_SHORT).show();
             return;
         }else{
             if (!nfcAdapter.isEnabled()) {
@@ -70,10 +73,15 @@ public class AddUserActivity extends AppCompatActivity {
                 || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)){
             byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
-            addButton.setEnabled(true);
-            nfcID = new String(ByteArrayToHexString(id));
+            nfcID = ByteArrayToHexString(id);
+            if(nfcID.substring(9).trim().equals("DE") ){
+                addButton.setEnabled(true);
+                nfcStatusTextView.setText(nfcID);
+            }else{
+                Snackbar.make(view,"ongeldige kaart",Snackbar.LENGTH_SHORT).show();
+            }
+
         }
-        nfcStatusTextView.setText(nfcID);
     }
 
     String ByteArrayToHexString(byte [] inarray)
@@ -109,13 +117,13 @@ public class AddUserActivity extends AppCompatActivity {
 
     public void AddUserTtoDB(View view) {
         Student student = new Student();
-        student.setFirstName(nameEditText.getText().toString());
-        student.setLastName(lastNameEditText.getText().toString());
-        student.setStudentNumber(studentNumberEditText.getText().toString());
+        student.setFirstName(nameEditText.getText().toString().trim());
+        student.setLastName(lastNameEditText.getText().toString().trim());
+        student.setStudentNumber(studentNumberEditText.getText().toString().trim());
         student.setCardIdNumber(nfcID);
         db.Instance.StudentDao().insertStudent(student);
         startActivity(new Intent(this, MainActivity.class));
-        Toast.makeText(this,student.getFirstName() + " is toegevoegd",Toast.LENGTH_SHORT).show();
+        Snackbar.make(view,student.getFirstName() + " is toegevoegd",Snackbar.LENGTH_SHORT).show();
     }
 
 }
