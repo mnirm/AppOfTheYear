@@ -72,6 +72,7 @@
             android:id="@+id/buttonAddUser"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:enabled="false"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             app:icon="@drawable/ic_add"
             android:onClick="AddUserTtoDB"
