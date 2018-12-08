@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_marginBottom="18dp"
-            android:text="@string/scan_card_first" />
+            android:text="@string/scan_card_first"
+            android:textColor="@color/colorPrimary" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

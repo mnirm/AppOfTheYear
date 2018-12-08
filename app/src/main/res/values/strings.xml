@@ -6,6 +6,9 @@
     <string name="name_placeholder">Naam</string>
     <string name="lastname_placeholder">Achternaam</string>
     <string name="s_number_placeholder">Student nummer</string>
+    <string name="name_required"> naam is verplicht </string>
+    <string name="last_name_required"> achternaam is verplicht </string>
+    <string name="studentnumber_required"> studenten nummer is verplicht </string>
     <string name="add_user">VOEG TOE</string>
     <string name="scan_card_first">Scan eerst de studenten kaart</string>
     <string name="button_add_user">Add user</string>

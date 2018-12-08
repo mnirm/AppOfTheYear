@@ -13,19 +13,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import jarno.oussama.com.examenmonitor.Database.Student;
 import jarno.oussama.com.examenmonitor.Database.StudentDatabase;
 
 public class AddUserActivity extends AppCompatActivity {
     TextView nfcStatusTextView;
-    EditText nameEditText;
-    EditText lastNameEditText;
-    EditText studentNumberEditText;
+    EditText nameEditText,studentNumberEditText,lastNameEditText;
+    String  nfcID,name, lastName, studentNumber;
     View view;
     Button addButton;
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
-    String nfcID;
     StudentDatabase db;
 
     @Override
@@ -80,7 +81,6 @@ public class AddUserActivity extends AppCompatActivity {
             }else{
                 Snackbar.make(view,"ongeldige kaart",Snackbar.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -116,16 +116,38 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     public void AddUserTtoDB(View view) {
+        Initialize();
         Student student = new Student();
-        student.setFirstName(nameEditText.getText().toString().trim());
-        student.setLastName(lastNameEditText.getText().toString().trim());
-        student.setStudentNumber(studentNumberEditText.getText().toString().trim());
-        student.setCardIdNumber(nfcID);
-        db.Instance.StudentDao().insertStudent(student);
-        startActivity(new Intent(this, MainActivity.class));
-        Snackbar.make(view,student.getFirstName() + " is toegevoegd",Snackbar.LENGTH_SHORT).show();
+        if (validate()){
+            student.setFirstName(name);
+            student.setLastName(lastName);
+            student.setStudentNumber(studentNumber);
+            student.setCardIdNumber(nfcID);
+            db.Instance.StudentDao().insertStudent(student);
+            Snackbar.make(view,student.getFirstName() + " is toegevoegd",Snackbar.LENGTH_SHORT).show();
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
 
+    private boolean validate() {
+        boolean valid = true;
+        if(name.isEmpty())
+            nameEditText.setError(getResources().getString(R.string.name_required));
+            valid =false;
+        if(lastName.isEmpty())
+            lastNameEditText.setError(getResources().getString(R.string.last_name_required));
+            valid =false;
+        if(studentNumber.isEmpty())
+            studentNumberEditText.setError(getResources().getString(R.string.studentnumber_required));
+            valid =false;
+        return valid;
+    }
+
+    public void Initialize(){
+        name = nameEditText.getText().toString().trim();
+        lastName = lastNameEditText.getText().toString().trim();
+        studentNumber = studentNumberEditText.getText().toString().trim();
+    }
 }
 
     
