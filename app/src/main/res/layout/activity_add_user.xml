@@ -22,50 +22,63 @@
             android:layout_marginTop="32dp"
             android:text="@string/add_user_title"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewNfcStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="@string/scan_card_first"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:layout_marginBottom="18dp"
+            android:text="@string/scan_card_first" />
 
-        <EditText
-            android:id="@+id/editTextSurname"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name_placeholder"
-            android:inputType="textPersonName" />
+            android:layout_margin="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextSurname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-
-        <EditText
-            android:id="@+id/editTextLastname"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lastname_placeholder"
-            android:inputType="textPersonName" />
+            android:layout_margin="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextLastname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextSNummer"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/s_number_placeholder"
-            android:inputType="number" />
+            android:layout_margin="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextSNummer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAddUser"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_user"
+            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:icon="@drawable/ic_add"
             android:onClick="AddUserTtoDB"
-            android:textColor="@color/colorPrimary"/>
+            android:text="@string/add_user">
+
+        </com.google.android.material.button.MaterialButton>
+
 
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

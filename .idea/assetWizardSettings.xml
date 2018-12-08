@@ -13,24 +13,17 @@
                       <PersistentState>
                         <option name="children">
                           <map>
-
                             <entry key="launcher">
-
-
                               <value>
                                 <PersistentState>
                                   <option name="children">
                                     <map>
-
                                       <entry key="foregroundImage">
-
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-
                                                 <entry key="scalingPercent" value="58" />
-
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -40,7 +33,6 @@
                                   </option>
                                   <option name="values">
                                     <map>
-
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="e60005" />
                                       <entry key="foregroundImage" value="C:\Users\cools\Desktop\logo-ap-white.png" />
@@ -75,7 +67,6 @@
                                   <option name="values">
                                     <map>
                                       <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_view_module_black_24dp.xml" />
-
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -85,10 +76,12 @@
                         </option>
                         <option name="values">
                           <map>
-
-                            <entry key="outputName" value="ic_view_module_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\cools" />
-
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="height" value="42" />
+                            <entry key="outputName" value="ic_add" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\cools\Desktop\add.svg" />
+                            <entry key="width" value="42" />
                           </map>
                         </option>
                       </PersistentState>
