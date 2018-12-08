@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AddUserActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".AddUserActivity"
-        tools:layout_editor_absoluteY="73dp"
-        android:id="@+id/relativeLayout">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView"
@@ -38,64 +39,33 @@
 
         <EditText
             android:id="@+id/editTextSurname"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="64dp"
-            android:ems="10"
             android:hint="@string/name_placeholder"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewNfcStatus" />
+            android:inputType="textPersonName" />
 
 
         <EditText
             android:id="@+id/editTextLastname"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="36dp"
-            android:ems="10"
             android:hint="@string/lastname_placeholder"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextSurname" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextSNummer"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="36dp"
-            android:ems="10"
             android:hint="@string/s_number_placeholder"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextLastname" />
+            android:inputType="number" />
 
-        <Button
+        <com.google.android.material.chip.Chip
             android:id="@+id/buttonAddUser"
-            android:layout_width="117dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:enabled="false"
-            android:onClick="AddUserTtoDB"
             android:text="@string/add_user"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextSNummer"
-            app:layout_constraintVertical_bias="0.292"
-            tools:textColor="@color/colorPrimary" />
-    </android.support.constraint.ConstraintLayout>
-</android.support.design.widget.CoordinatorLayout>
+            android:onClick="AddUserTtoDB"
+            android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
