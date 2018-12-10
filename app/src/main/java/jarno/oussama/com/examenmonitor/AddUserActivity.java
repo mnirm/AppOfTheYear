@@ -115,7 +115,7 @@ public class AddUserActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void AddUserTtoDB(View view) {
+    public void AddUserToDB(View view) {
         Initialize();
         Student student = new Student();
         if (validate()){
@@ -130,17 +130,19 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     private boolean validate() {
-        boolean valid = true;
-        if(name.isEmpty())
+        if(name.isEmpty()) {
             nameEditText.setError(getResources().getString(R.string.name_required));
-            valid =false;
-        if(lastName.isEmpty())
+            return false;
+        }
+        if(lastName.isEmpty()) {
             lastNameEditText.setError(getResources().getString(R.string.last_name_required));
-            valid =false;
-        if(studentNumber.isEmpty())
+            return false;
+        }
+        if(studentNumber.isEmpty()) {
             studentNumberEditText.setError(getResources().getString(R.string.studentnumber_required));
-            valid =false;
-        return valid;
+            return false;
+        }
+        return true;
     }
 
     public void Initialize(){

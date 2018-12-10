@@ -76,7 +76,7 @@
             android:enabled="false"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             app:icon="@drawable/ic_add"
-            android:onClick="AddUserTtoDB"
+            android:onClick="AddUserToDB"
             android:text="@string/add_user">
 
         </com.google.android.material.button.MaterialButton>
