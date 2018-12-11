@@ -21,4 +21,8 @@ public class MainActivity extends AppCompatActivity {
         Intent StudentList = new Intent(this, StudentsListActivity.class);
         startActivity(StudentList);
     }
+    public void NewExamActivity(View view) {
+        Intent StudentList = new Intent(this, NewExamActivity.class);
+        startActivity(StudentList);
+    }
 }

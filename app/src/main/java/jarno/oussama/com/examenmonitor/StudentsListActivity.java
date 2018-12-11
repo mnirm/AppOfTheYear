@@ -43,7 +43,9 @@ public class StudentsListActivity extends AppCompatActivity {
         });
         students = new ArrayList<>();
         StudentDatabase db = StudentDatabase.getDatabase(this);
+
         students = db.Instance.StudentDao().getAllStudents();
+
         recyclerView = findViewById(R.id.recyclerviewStudents);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new StudentListAdapter(students);
