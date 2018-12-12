@@ -150,6 +150,9 @@ public class AddUserActivity extends AppCompatActivity {
         lastName = lastNameEditText.getText().toString().trim();
         studentNumber = Integer.parseInt(studentNumberEditText.getText().toString());
     }
+
+    public void OpenCamera(View view) {
+    }
 }
 
     

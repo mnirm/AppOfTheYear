@@ -33,29 +33,47 @@
             android:text="@string/scan_card_first"
             android:textColor="@color/colorPrimary" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name_placeholder"
-            android:layout_margin="10dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextSurname"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textPersonName"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/lastname_placeholder"
-            android:layout_margin="10dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextLastname"
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5">
+                <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textPersonName"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/name_placeholder"
+                android:layout_margin="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5">
+                <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lastname_placeholder"
+                android:layout_margin="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextLastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -81,6 +99,10 @@
 
         </com.google.android.material.button.MaterialButton>
 
-
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Camera test"
+            android:onClick="OpenCamera"/>
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
