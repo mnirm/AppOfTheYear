@@ -98,11 +98,5 @@
             android:text="@string/add_user">
 
         </com.google.android.material.button.MaterialButton>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Camera test"
-            android:onClick="OpenCamera"/>
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
