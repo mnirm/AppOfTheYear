@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "819790630076-l85pic2sfunb46thhd3f6loooknqtggm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "jarno.oussama.com.examenmonitor",
+            "certificate_hash": "bcc5c7181e3cdd3b468c8762423fc83eddfd1e13"
+          }
+        },
+        {
           "client_id": "819790630076-vmkgdoe313i1fkttoe4rqluedt0d2r70.apps.googleusercontent.com",
           "client_type": 3
         }
