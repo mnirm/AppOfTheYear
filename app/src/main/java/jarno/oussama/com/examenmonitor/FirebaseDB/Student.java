@@ -1,43 +1,26 @@
-package jarno.oussama.com.examenmonitor.Database;
+package jarno.oussama.com.examenmonitor.FirebaseDB;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 
-@Entity(indices = {@Index(value = "card_id", unique = true)})
+@IgnoreExtraProperties
 public class Student {
-
-    @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "student_number")
-    private String StudentNumber;
-
-    @NonNull
-    @ColumnInfo(name = "card_id")
+    private int StudentNumber;
     private String CardIdNumber;
-
-    @NonNull
-    @ColumnInfo(name = "first_name")
     private String FirstName;
-
-    @NonNull
-    @ColumnInfo(name = "last_name")
     private String LastName;
-
-
 
     public Student() {
 
     }
 
-
-    public String getStudentNumber() {
+    public int getStudentNumber() {
         return StudentNumber;
     }
 
-    public void setStudentNumber(String studentNumber) {
+    public void setStudentNumber(int studentNumber) {
         StudentNumber = studentNumber;
     }
 
@@ -64,4 +47,5 @@ public class Student {
     public void setCardIdNumber(String cardIdNumber) {
         CardIdNumber = cardIdNumber;
     }
+
 }

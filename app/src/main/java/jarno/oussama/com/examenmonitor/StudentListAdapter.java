@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import jarno.oussama.com.examenmonitor.Database.Student;
+import jarno.oussama.com.examenmonitor.FirebaseDB.Student;
 
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.ViewHolder> {
     List<Student> students;
@@ -29,7 +29,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     public void onBindViewHolder(@NonNull StudentListAdapter.ViewHolder holder, int position) {
         holder.FirstName.setText(students.get(position).getFirstName());
         holder.LastName.setText(students.get(position).getLastName());
-        holder.studentNumber.setText(students.get(position).getStudentNumber());
+        holder.studentNumber.setText(Integer.toString(students.get(position).getStudentNumber()));
         holder.studentCardId.setText(students.get(position).getCardIdNumber());
     }
 

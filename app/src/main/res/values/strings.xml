@@ -17,4 +17,8 @@
     <string name="title_activity_students_list">Students</string>
     <string name="button_student_list">Studenten lijst</string>
     <string name="student_list_subtext">Toon de lijst met studenten</string>
+    <string name="button_new_exam">Nieuw examen</string>
+    <string name="new_exam_subtext">Start een nieuw examen</string>
+    <string name="new_exam_title">Nieuw examen</string>
+    <string name="exam">Examen</string>
 </resources>

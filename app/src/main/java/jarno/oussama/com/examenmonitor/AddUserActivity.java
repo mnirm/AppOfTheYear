@@ -6,6 +6,9 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.provider.Settings;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,21 +16,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import jarno.oussama.com.examenmonitor.FirebaseDB.Student;
 
-import jarno.oussama.com.examenmonitor.Database.Student;
-import jarno.oussama.com.examenmonitor.Database.StudentDatabase;
 
 public class AddUserActivity extends AppCompatActivity {
     TextView nfcStatusTextView;
     EditText nameEditText,studentNumberEditText,lastNameEditText;
-    String  nfcID,name, lastName, studentNumber;
+    String  nfcID,name, lastName;
+    int studentNumber;
     View view;
     Button addButton;
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
-    StudentDatabase db;
+    DatabaseReference studentsRef = FirebaseDatabase.getInstance().getReference("students");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class AddUserActivity extends AppCompatActivity {
         studentNumberEditText = findViewById(R.id.editTextSNummer);
         addButton = findViewById(R.id.buttonAddUser);
         view = findViewById(android.R.id.content);
-        StudentDatabase db = StudentDatabase.getDatabase(this);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null){
             Snackbar.make(view,"Your device doesn't have an NFC reader",Snackbar.LENGTH_SHORT).show();
@@ -123,7 +123,7 @@ public class AddUserActivity extends AppCompatActivity {
             student.setLastName(lastName);
             student.setStudentNumber(studentNumber);
             student.setCardIdNumber(nfcID);
-            db.Instance.StudentDao().insertStudent(student);
+            studentsRef.child(Integer.toString(student.getStudentNumber())).setValue(student);
             Snackbar.make(view,student.getFirstName() + " is toegevoegd",Snackbar.LENGTH_SHORT).show();
             startActivity(new Intent(this, MainActivity.class));
         }
@@ -138,7 +138,7 @@ public class AddUserActivity extends AppCompatActivity {
             lastNameEditText.setError(getResources().getString(R.string.last_name_required));
             return false;
         }
-        if(studentNumber.isEmpty()) {
+        if(studentNumberEditText.getText().toString().isEmpty()) {
             studentNumberEditText.setError(getResources().getString(R.string.studentnumber_required));
             return false;
         }
@@ -148,7 +148,7 @@ public class AddUserActivity extends AppCompatActivity {
     public void Initialize(){
         name = nameEditText.getText().toString().trim();
         lastName = lastNameEditText.getText().toString().trim();
-        studentNumber = studentNumberEditText.getText().toString().trim();
+        studentNumber = Integer.parseInt(studentNumberEditText.getText().toString());
     }
 }
 

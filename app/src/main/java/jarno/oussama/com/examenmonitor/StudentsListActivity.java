@@ -4,6 +4,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,23 +17,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
-import jarno.oussama.com.examenmonitor.Database.Student;
-import jarno.oussama.com.examenmonitor.Database.StudentDatabase;
+import java.util.List;
+
+
+import jarno.oussama.com.examenmonitor.FirebaseDB.Student;
+
 
 public class StudentsListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     List<Student> students;
+    DatabaseReference studentsRef = FirebaseDatabase.getInstance().getReference("students");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +47,37 @@ public class StudentsListActivity extends AppCompatActivity {
         fab.setOnClickListener((View view) -> {
             startActivity(new Intent(this, AddUserActivity.class));
         });
-        students = new ArrayList<>();
-        StudentDatabase db = StudentDatabase.getDatabase(this);
-        students = db.Instance.StudentDao().getAllStudents();
+        students = new ArrayList<Student>();
         recyclerView = findViewById(R.id.recyclerviewStudents);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new StudentListAdapter(students);
-        recyclerView.setAdapter(adapter);
+        studentsRef.addValueEventListener(new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                students.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    Student studentFBDB = data.getValue(Student.class);
+                    Student student = new Student();
+                    student.setFirstName(studentFBDB.getFirstName());
+                    student.setLastName(studentFBDB.getLastName());
+                    student.setCardIdNumber(studentFBDB.getCardIdNumber());
+                    student.setStudentNumber(studentFBDB.getStudentNumber());
+                    students.add(student);
+                }
+
+                adapter = new StudentListAdapter(students);
+                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("Hello", "Failed to read value.", databaseError.toException());
+            }
+        });
+
+
 
     }
 
