@@ -90,9 +90,8 @@ public class NewExamActivity extends AppCompatActivity {
                 exam.setName(examName);
                 exam.setRegistrationAfterEndTimeAllowed(switchRegistrationsAllowedAfterEndTime.isChecked());
                 exam.setExamId(examName +"_"+startTime.get(Calendar.DAY_OF_MONTH)+"_"+ startTime.get(Calendar.HOUR));
-                //examsRef.push().setValue(exam);
                 examsRef.child(exam.getExamId()).setValue(exam);
-                Intent intent = new Intent(this, CheckInOutActivity.class).putExtra("EXAM_NAME", exam.getName());
+                Intent intent = new Intent(this, CheckInOutActivity.class).putExtra("EXAM_ID", exam.getExamId());
                 startActivity(intent);
             }
         });
