@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="jarno.oussama.com.examenmonitor">
 
     <uses-permission android:name="android.permission.NFC" />
@@ -15,7 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -25,6 +27,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".AddUserActivity"
+            android:label="@string/label_add_user"
+            android:parentActivityName=".MainActivity"
+            android:value="jarno.oussama.com.examenmonitor.MainActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -32,12 +41,6 @@
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".AddUserActivity"
-            android:label="@string/label_add_user"
-            android:parentActivityName=".MainActivity"
-            android:value="jarno.oussama.com.examenmonitor.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jarno.oussama.com.examenmonitor.MainActivity" />
@@ -47,7 +50,15 @@
             android:label="@string/title_activity_students_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NewExamActivity" />
-        <activity android:name=".CheckInOutActivity"></activity>
+        <activity android:name=".CheckInOutActivity">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

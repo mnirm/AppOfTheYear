@@ -1,91 +1,108 @@
 package jarno.oussama.com.examenmonitor;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import jarno.oussama.com.examenmonitor.FirebaseDB.Exam;
+import jarno.oussama.com.examenmonitor.FirebaseDB.CheckInOutRegistration;
+import jarno.oussama.com.examenmonitor.Nfc.NFC;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class CheckInOutActivity extends AppCompatActivity {
-    String examName;
+    String examID;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference examsRef;
-    Query getExamQuery;
+    DatabaseReference checkInRegistrationRef;
+    DatabaseReference checkOutRegistrationRef;
     Exam currentExam;
     TextView textViewExamTitle;
+    NFC nfc;
+    View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_out);
         textViewExamTitle = findViewById(R.id.textViewExamTitle);
         Intent intent = getIntent();
-        examName = intent.getStringExtra("EXAM_NAME");
-        examsRef = FirebaseDatabase.getInstance().getReference("exams");
-        getExamQuery = examsRef.orderByChild("name").limitToFirst(1).equalTo(examName);
-        //getExamQuery.addListenerForSingleValueEvent();
+        examID = intent.getStringExtra("EXAM_ID");
+        examsRef = firebaseDatabase.getReference("exams");
+        checkInRegistrationRef = firebaseDatabase.getReference("checkInRegistrations");
+        checkOutRegistrationRef = firebaseDatabase.getReference("checkOutRegistrations");
+        view = findViewById(android.R.id.content);
+        nfc = new NFC(this, this, view);
+        if (savedInstanceState != null) {
+            examID = savedInstanceState.getString("EXAM_ID");
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("EXAM_ID", examID);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        /*getExamQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        examsRef.child(examID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot DataSnapshot : dataSnapshot.getChildren()) {
-                    currentExam = DataSnapshot.getValue(Exam.class);
-
-                }
-//                currentExam = (Exam) dataSnapshot;
-                textViewExamTitle.setText(currentExam.getName());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-        getExamQuery.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    currentExam = dataSnapshot.getValue(Exam.class);
-
-
-                textViewExamTitle.setText(currentExam.getName());
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                 currentExam = dataSnapshot.getValue(Exam.class);
-
-
                 textViewExamTitle.setText(currentExam.getName());
             }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                textViewExamTitle.setText(examName + "was removed");
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nfc.enableForeGroundDispatch();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        nfc.setResolveIntent(intent, (boolean isValid) -> {
+            if (isValid) {
+                CheckInOutRegistration checkInOutEntry = new CheckInOutRegistration();
+                checkInOutEntry.setCardId(nfc.nfcID);
+                checkInOutEntry.setExamId(currentExam.getExamId());
+                checkInOutEntry.setTimeStamp(Calendar.getInstance().getTimeInMillis());
+                checkInRegistrationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(checkInOutEntry.getCheckInOutRegistrationId())) {
+                            checkOutRegistrationRef.child(checkInOutEntry.getCheckInOutRegistrationId()).setValue(checkInOutEntry);
+                            Snackbar.make(view, nfc.nfcID + " uitgechecked", Snackbar.LENGTH_SHORT).show();
+                        } else {
+                            checkInRegistrationRef.child(checkInOutEntry.getCheckInOutRegistrationId()).setValue(checkInOutEntry);
+                            Snackbar.make(view, nfc.nfcID + " ingechecked", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            } else {
+                Snackbar.make(view, "ongeldige kaart", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
