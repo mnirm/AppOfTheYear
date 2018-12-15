@@ -3,7 +3,7 @@
     package="jarno.oussama.com.examenmonitor">
 
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -46,7 +46,8 @@
             android:name=".StudentsListActivity"
             android:label="@string/title_activity_students_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NewExamActivity"></activity>
+        <activity android:name=".NewExamActivity" />
+        <activity android:name=".CheckInOutActivity"></activity>
     </application>
 
 </manifest>

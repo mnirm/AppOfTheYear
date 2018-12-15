@@ -6,8 +6,8 @@ import java.util.Date;
 
 @IgnoreExtraProperties
 public class Exam {
-
     String name;
+    String examId;
     boolean registrationAfterEndTimeAllowed;
     Long startTime;
     Long endTime;
@@ -15,7 +15,14 @@ public class Exam {
     public Exam() {
 
     }
-    //Date date;
+
+    public String getExamId() {
+        return examId;
+    }
+
+    public void setExamId(String examId) {
+        this.examId = examId;
+    }
 
     public boolean isRegistrationAfterEndTimeAllowed() {
         return registrationAfterEndTimeAllowed;
@@ -24,6 +31,7 @@ public class Exam {
     public void setRegistrationAfterEndTimeAllowed(boolean registrationAfterEndTimeAllowed) {
         this.registrationAfterEndTimeAllowed = registrationAfterEndTimeAllowed;
     }
+
     public String getName() {
         return name;
     }

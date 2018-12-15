@@ -3,6 +3,7 @@ package jarno.oussama.com.examenmonitor;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +36,7 @@ public class StudentsListActivity extends AppCompatActivity {
     List<Student> students;
     DatabaseReference studentsRef = FirebaseDatabase.getInstance().getReference("students");
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -50,13 +52,16 @@ public class StudentsListActivity extends AppCompatActivity {
         students = new ArrayList<Student>();
         recyclerView = findViewById(R.id.recyclerviewStudents);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         studentsRef.addValueEventListener(new ValueEventListener() {
-
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 students.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Student studentFBDB = data.getValue(Student.class);
                     Student student = new Student();
                     student.setFirstName(studentFBDB.getFirstName());
@@ -65,10 +70,8 @@ public class StudentsListActivity extends AppCompatActivity {
                     student.setStudentNumber(studentFBDB.getStudentNumber());
                     students.add(student);
                 }
-
                 adapter = new StudentListAdapter(students);
                 recyclerView.setAdapter(adapter);
-
             }
 
             @Override
@@ -76,9 +79,6 @@ public class StudentsListActivity extends AppCompatActivity {
                 Log.w("Hello", "Failed to read value.", databaseError.toException());
             }
         });
-
-
-
     }
 
 }
