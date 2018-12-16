@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -38,11 +39,24 @@ public class AddUserActivity extends AppCompatActivity {
         addButton = findViewById(R.id.buttonAddUser);
         view = findViewById(android.R.id.content);
         nfc = new NFC(this,this,view);
+        if (savedInstanceState != null){
+            nfc.nfcID = savedInstanceState.getString("NFC_ID");
+            nfcStatusTextView.setText(nfc.nfcID);
+            addButton.setEnabled(true);
+        }
     }
     @Override
     protected void onResume() {
         super.onResume();
         nfc.enableForeGroundDispatch();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(!nfc.nfcID.isEmpty()){
+            outState.putString("NFC_ID",nfc.nfcID);
+        }
     }
 
     @Override
