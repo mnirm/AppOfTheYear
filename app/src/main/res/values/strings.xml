@@ -23,4 +23,8 @@
     <string name="new_exam_title">Nieuw examen</string>
     <string name="exam">Examen</string>
     <string name="button_create_exam">CreËer het examen</string>
+    <string name="button_my_exams">Mijn examens</string>
+    <string name="my_exams_subtext">Toon mijn examens</string>
+    <string name="title_activity_my_exams">My Exams</string>
+    <string name="action_settings">Settings</string>
 </resources>

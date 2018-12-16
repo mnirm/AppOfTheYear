@@ -2,8 +2,8 @@ package jarno.oussama.com.examenmonitor.FirebaseDB;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
+
+
 
 @IgnoreExtraProperties
 public class Student {

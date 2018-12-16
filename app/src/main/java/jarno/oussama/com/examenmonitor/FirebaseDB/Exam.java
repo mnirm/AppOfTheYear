@@ -6,14 +6,22 @@ import java.util.Date;
 
 @IgnoreExtraProperties
 public class Exam {
-    String name;
-    String examId;
-    boolean registrationAfterEndTimeAllowed;
-    Long startTime;
-    Long endTime;
+    private String name;
+    private String examId;
+    private String createdByUid;
+    private Long startTime;
+    private Long endTime;
+    private boolean registrationAfterEndTimeAllowed;
 
     public Exam() {
 
+    }
+    public String getCreatedByUid() {
+        return createdByUid;
+    }
+
+    public void setCreatedByUid(String createdByUid) {
+        this.createdByUid = createdByUid;
     }
 
     public String getExamId() {
@@ -24,7 +32,7 @@ public class Exam {
         this.examId = examId;
     }
 
-    public boolean isRegistrationAfterEndTimeAllowed() {
+    public boolean getRegistrationAfterEndTimeAllowed() {
         return registrationAfterEndTimeAllowed;
     }
 

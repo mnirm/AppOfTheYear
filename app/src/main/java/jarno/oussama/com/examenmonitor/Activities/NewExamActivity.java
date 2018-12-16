@@ -14,6 +14,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -35,6 +36,7 @@ public class NewExamActivity extends AppCompatActivity {
     String examName;
     DatabaseReference examsRef;
     Exam exam = new Exam();
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class NewExamActivity extends AppCompatActivity {
         startTime = new GregorianCalendar();
         startTime.set(Calendar.MILLISECOND,Calendar.getInstance().get(Calendar.MILLISECOND));
         endTime = new GregorianCalendar();
-        //int temp = ;
+        auth = FirebaseAuth.getInstance();
         endTime.set(Calendar.MILLISECOND,Calendar.getInstance().get(Calendar.MILLISECOND) + 3600000);
         textViewStartTime.setText(startTime.get(Calendar.HOUR) + ":" +startTime.get(Calendar.MINUTE) );
         textViewEndTime.setText(endTime.get(Calendar.HOUR) + ":" + endTime.get(Calendar.MINUTE) );
@@ -89,7 +91,9 @@ public class NewExamActivity extends AppCompatActivity {
                 exam.setName(examName);
                 exam.setRegistrationAfterEndTimeAllowed(switchRegistrationsAllowedAfterEndTime.isChecked());
                 exam.setExamId(examName +"_"+startTime.get(Calendar.DAY_OF_MONTH)+"_"+ startTime.get(Calendar.HOUR));
-                examsRef.child(exam.getExamId()).setValue(exam);
+                exam.setCreatedByUid(auth.getCurrentUser().getUid());
+                examsRef.child(auth.getCurrentUser().getUid()).child(exam.getExamId()).setValue(exam);
+               // examsRef.child(exam.getExamId()).setValue(exam);
                 Intent intent = new Intent(this, CheckInOutActivity.class).putExtra("EXAM_ID", exam.getExamId());
                 startActivity(intent);
             }
