@@ -41,11 +41,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
 
      class ViewHolder extends RecyclerView.ViewHolder {
-         TextView FirstName;
-         TextView LastName;
-         TextView studentNumber;
-         TextView studentCardId;
-
+         TextView FirstName,LastName,studentNumber,studentCardId;
          ViewHolder(View itemView) {
             super(itemView);
             FirstName = itemView.findViewById(R.id.textViewStudentName);
@@ -53,6 +49,5 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
             studentNumber = itemView.findViewById(R.id.textViewStudentNumber);
             studentCardId = itemView.findViewById(R.id.textViewStudentCardId);
         }
-
     }
 }

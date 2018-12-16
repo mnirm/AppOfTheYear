@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class CheckInOutActivity extends AppCompatActivity {
     TextView textViewExamTitle;
     NFC nfc;
     View view;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,8 @@ public class CheckInOutActivity extends AppCompatActivity {
         textViewExamTitle = findViewById(R.id.textViewExamTitle);
         Intent intent = getIntent();
         examID = intent.getStringExtra("EXAM_ID");
-        examsRef = firebaseDatabase.getReference("exams");
+        auth = FirebaseAuth.getInstance();
+        examsRef = firebaseDatabase.getReference("exams").child(auth.getCurrentUser().getUid());
         checkInRegistrationRef = firebaseDatabase.getReference("checkInRegistrations");
         checkOutRegistrationRef = firebaseDatabase.getReference("checkOutRegistrations");
         view = findViewById(android.R.id.content);

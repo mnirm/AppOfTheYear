@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void AddUserActivity(View view) {
-        Intent intentAdduser = new Intent(this, AddUserActivity.class);
-        startActivity(intentAdduser);
+        Intent IntentAdduser = new Intent(this, AddUserActivity.class);
+        startActivity(IntentAdduser);
     }
 
     public void StudentsListActivity(View view) {
@@ -71,5 +71,10 @@ public class MainActivity extends AppCompatActivity {
     public void NewExamActivity(View view) {
         Intent StudentList = new Intent(this, NewExamActivity.class);
         startActivity(StudentList);
+    }
+
+    public void MyExamsActivity(View view) {
+        Intent MyExams = new Intent(this, MyExamsActivity.class);
+        startActivity(MyExams);
     }
 }

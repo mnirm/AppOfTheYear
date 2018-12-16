@@ -92,7 +92,8 @@ public class NewExamActivity extends AppCompatActivity {
                 exam.setRegistrationAfterEndTimeAllowed(switchRegistrationsAllowedAfterEndTime.isChecked());
                 exam.setExamId(examName +"_"+startTime.get(Calendar.DAY_OF_MONTH)+"_"+ startTime.get(Calendar.HOUR));
                 exam.setCreatedByUid(auth.getCurrentUser().getUid());
-                examsRef.child(exam.getExamId()).setValue(exam);
+                examsRef.child(auth.getCurrentUser().getUid()).child(exam.getExamId()).setValue(exam);
+               // examsRef.child(exam.getExamId()).setValue(exam);
                 Intent intent = new Intent(this, CheckInOutActivity.class).putExtra("EXAM_ID", exam.getExamId());
                 startActivity(intent);
             }
