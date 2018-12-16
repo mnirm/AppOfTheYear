@@ -1,4 +1,4 @@
-package jarno.oussama.com.examenmonitor;
+package jarno.oussama.com.examenmonitor.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import jarno.oussama.com.examenmonitor.FirebaseDB.Student;
 import jarno.oussama.com.examenmonitor.Nfc.NFC;
+import jarno.oussama.com.examenmonitor.R;
 
 
 public class AddUserActivity extends AppCompatActivity {

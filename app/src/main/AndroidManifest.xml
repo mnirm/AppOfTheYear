@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask">
             <intent-filter>
@@ -30,9 +30,9 @@
 
         </activity>
         <activity
-            android:name=".AddUserActivity"
+            android:name=".Activities.AddUserActivity"
             android:label="@string/label_add_user"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:value="jarno.oussama.com.examenmonitor.MainActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -43,14 +43,14 @@
             </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="jarno.oussama.com.examenmonitor.MainActivity" />
+                android:value="jarno.oussama.com.examenmonitor.Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".StudentsListActivity"
+            android:name=".Activities.StudentsListActivity"
             android:label="@string/title_activity_students_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NewExamActivity" />
-        <activity android:name=".CheckInOutActivity">
+        <activity android:name=".Activities.NewExamActivity" />
+        <activity android:name=".Activities.CheckInOutActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 

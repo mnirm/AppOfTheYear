@@ -1,4 +1,4 @@
-package jarno.oussama.com.examenmonitor;
+package jarno.oussama.com.examenmonitor.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,9 +10,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import jarno.oussama.com.examenmonitor.FirebaseDB.Student;
+import jarno.oussama.com.examenmonitor.R;
 
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.ViewHolder> {
-    List<Student> students;
+    private List<Student> students;
 
     public StudentListAdapter(List<Student> students) {
         this.students = students;
@@ -39,13 +40,13 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView FirstName;
-        public TextView LastName;
-        public TextView studentNumber;
-        public TextView studentCardId;
+     class ViewHolder extends RecyclerView.ViewHolder {
+         TextView FirstName;
+         TextView LastName;
+         TextView studentNumber;
+         TextView studentCardId;
 
-        public ViewHolder(View itemView) {
+         ViewHolder(View itemView) {
             super(itemView);
             FirstName = itemView.findViewById(R.id.textViewStudentName);
             LastName = itemView.findViewById(R.id.textViewStudentLastName);

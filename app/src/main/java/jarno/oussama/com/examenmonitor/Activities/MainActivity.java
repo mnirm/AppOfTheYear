@@ -1,8 +1,10 @@
-package jarno.oussama.com.examenmonitor;
+package jarno.oussama.com.examenmonitor.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import jarno.oussama.com.examenmonitor.R;
+
 import android.view.View;
 
 import com.google.firebase.database.FirebaseDatabase;

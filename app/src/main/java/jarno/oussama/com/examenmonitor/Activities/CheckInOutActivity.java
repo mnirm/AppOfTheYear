@@ -1,10 +1,11 @@
-package jarno.oussama.com.examenmonitor;
+package jarno.oussama.com.examenmonitor.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import jarno.oussama.com.examenmonitor.FirebaseDB.Exam;
 import jarno.oussama.com.examenmonitor.FirebaseDB.CheckInOutRegistration;
 import jarno.oussama.com.examenmonitor.Nfc.NFC;
+import jarno.oussama.com.examenmonitor.R;
 
 import android.content.Intent;
 import android.os.Bundle;

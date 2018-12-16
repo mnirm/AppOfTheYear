@@ -1,11 +1,9 @@
-package jarno.oussama.com.examenmonitor;
+package jarno.oussama.com.examenmonitor.Activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,7 +11,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +25,8 @@ import java.util.List;
 
 
 import jarno.oussama.com.examenmonitor.FirebaseDB.Student;
+import jarno.oussama.com.examenmonitor.R;
+import jarno.oussama.com.examenmonitor.Adapters.StudentListAdapter;
 
 
 public class StudentsListActivity extends AppCompatActivity {
@@ -39,8 +38,6 @@ public class StudentsListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
