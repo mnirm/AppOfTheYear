@@ -12,8 +12,18 @@ public class Exam {
     Long startTime;
     Long endTime;
 
+
+
+    String createdByUid;
     public Exam() {
 
+    }
+    public String getCreatedByUid() {
+        return createdByUid;
+    }
+
+    public void setCreatedByUid(String createdByUid) {
+        this.createdByUid = createdByUid;
     }
 
     public String getExamId() {
