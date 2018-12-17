@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +34,8 @@ public class MyExamsActivity extends AppCompatActivity {
     List<Exam> MyExams;
     DatabaseReference examsRef = FirebaseDatabase.getInstance().getReference("exams");
     FirebaseAuth auth;
+    TextView textViewNoExams;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,7 @@ public class MyExamsActivity extends AppCompatActivity {
         MyExams = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerviewMyExams);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        textViewNoExams = findViewById(R.id.textViewNoExams);
     }
 
     @Override
@@ -65,6 +69,9 @@ public class MyExamsActivity extends AppCompatActivity {
                     exam.setName(examFBDB.getName());
                     exam.setRegistrationAfterEndTimeAllowed(examFBDB.getRegistrationAfterEndTimeAllowed());
                     MyExams.add(exam);
+                }
+                if (MyExams.isEmpty()){
+                    textViewNoExams.setVisibility(View.VISIBLE);
                 }
                 adapter = new ExamsListAdapter(MyExams);
                 recyclerView.setAdapter(adapter);

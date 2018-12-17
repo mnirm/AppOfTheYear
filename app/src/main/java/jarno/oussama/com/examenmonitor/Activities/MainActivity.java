@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
         auth = FirebaseAuth.getInstance();
-        if (auth != null) {
+        if (auth.getCurrentUser() != null) {
 
         } else {
             startActivityForResult(AuthUI.getInstance()
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     .setAvailableProviders(providers)
                     .build(), RC_SIGN_IN);
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        }
+       }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

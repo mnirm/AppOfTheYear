@@ -27,4 +27,5 @@
     <string name="my_exams_subtext">Toon mijn examens</string>
     <string name="title_activity_my_exams">My Exams</string>
     <string name="action_settings">Settings</string>
+    <string name="no_exams_textview">Je hebt nog geen examens aangemaakt</string>
 </resources>
