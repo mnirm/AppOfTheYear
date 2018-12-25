@@ -80,7 +80,7 @@ public class AddUserActivity extends AppCompatActivity {
             student.setLastName(lastName);
             student.setStudentNumber(studentNumber);
             student.setCardIdNumber(nfc.nfcID);
-            studentsRef.child(Integer.toString(student.getStudentNumber())).setValue(student);
+            studentsRef.child(student.getCardIdNumber()).setValue(student);
             Snackbar.make(view,student.getFirstName() + " is toegevoegd",Snackbar.LENGTH_SHORT).show();
             startActivity(new Intent(this, MainActivity.class));
         }

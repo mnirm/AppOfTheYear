@@ -42,7 +42,7 @@ public class MyExamsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_exams);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener((View view) -> {
-            startActivity(new Intent(this, AddUserActivity.class));
+            startActivity(new Intent(this, NewExamActivity.class));
         });
         auth = FirebaseAuth.getInstance();
         MyExams = new ArrayList<>();
@@ -72,6 +72,8 @@ public class MyExamsActivity extends AppCompatActivity {
                 }
                 if (MyExams.isEmpty()){
                     textViewNoExams.setVisibility(View.VISIBLE);
+                }else{
+                    textViewNoExams.setVisibility(View.GONE);
                 }
                 adapter = new ExamsListAdapter(MyExams);
                 recyclerView.setAdapter(adapter);

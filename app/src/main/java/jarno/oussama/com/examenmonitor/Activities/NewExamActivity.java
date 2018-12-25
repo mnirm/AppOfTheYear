@@ -90,10 +90,9 @@ public class NewExamActivity extends AppCompatActivity {
                 exam.setEndTime(endTime.getTimeInMillis());
                 exam.setName(examName);
                 exam.setRegistrationAfterEndTimeAllowed(switchRegistrationsAllowedAfterEndTime.isChecked());
-                exam.setExamId(examName +"_"+startTime.get(Calendar.DAY_OF_MONTH)+"_"+ startTime.get(Calendar.HOUR));
+                exam.setExamId(examName.replaceAll("\\s","")+"_"+startTime.get(Calendar.DAY_OF_MONTH)+"_"+ startTime.get(Calendar.HOUR));
                 exam.setCreatedByUid(auth.getCurrentUser().getUid());
                 examsRef.child(auth.getCurrentUser().getUid()).child(exam.getExamId()).setValue(exam);
-               // examsRef.child(exam.getExamId()).setValue(exam);
                 Intent intent = new Intent(this, CheckInOutActivity.class).putExtra("EXAM_ID", exam.getExamId());
                 startActivity(intent);
             }
@@ -107,7 +106,6 @@ public class NewExamActivity extends AppCompatActivity {
         }
         return true;
     }
-
     private void initialize() {
         examName = editTextExamName.getText().toString().trim();
     }

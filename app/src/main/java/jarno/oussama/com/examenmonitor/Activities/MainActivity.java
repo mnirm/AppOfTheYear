@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void NewExamActivity(View view) {
-        Intent StudentList = new Intent(this, NewExamActivity.class);
-        startActivity(StudentList);
+        Intent newExam = new Intent(this, NewExamActivity.class);
+        startActivity(newExam);
     }
 
     public void MyExamsActivity(View view) {

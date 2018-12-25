@@ -61,11 +61,17 @@ public class CheckInOutActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        examsRef.child(examID).addListenerForSingleValueEvent(new ValueEventListener() {
+        examsRef.child(examID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                currentExam = dataSnapshot.getValue(Exam.class);
-                textViewExamTitle.setText(currentExam.getName());
+                if(dataSnapshot.exists()){
+                    currentExam = dataSnapshot.getValue(Exam.class);
+                    textViewExamTitle.setText(currentExam.getName());
+                }else{
+                    Intent examlist = new Intent(getApplicationContext(), MyExamsActivity.class);
+                    startActivity(examlist);
+                }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
