@@ -1,14 +1,22 @@
 package jarno.oussama.com.examenmonitor.Activities;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import jarno.oussama.com.examenmonitor.CameraActivity;
 import jarno.oussama.com.examenmonitor.R;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.snackbar.Snackbar;
@@ -22,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 0;
     private FirebaseAuth auth;
     View view;
+
 
 
     @Override
@@ -43,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
        }
     }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
