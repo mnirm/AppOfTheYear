@@ -5,7 +5,6 @@
     android:background="@color/colorPrimaryDark"
     android:layout_height="176dp"
     android:padding="16dp"
-    android:style="@style/ThemeOverlay.AppCompact.Dark"
     android:gravity="bottom">
 
     <ImageView
