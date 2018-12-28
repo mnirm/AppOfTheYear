@@ -1,9 +1,5 @@
 package jarno.oussama.com.examenmonitor.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import jarno.oussama.com.examenmonitor.FirebaseDB.Exam;
-import jarno.oussama.com.examenmonitor.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import androidx.appcompat.app.AppCompatActivity;
+import jarno.oussama.com.examenmonitor.FirebaseDB.Exam;
+import jarno.oussama.com.examenmonitor.R;
+
 public class NewExamActivity extends AppCompatActivity {
     EditText editTextExamName;
     TextView textViewStartTime;
@@ -28,6 +28,7 @@ public class NewExamActivity extends AppCompatActivity {
     Switch switchRegistrationsAllowedAfterEndTime;
     TimePicker timePicker;
     LinearLayout linearLayoutTimePicker;
+    LinearLayout newExam;
     Button buttonSetTime;
     Button buttonNewExam;
     TextView clickedView;
@@ -46,6 +47,7 @@ public class NewExamActivity extends AppCompatActivity {
         textViewStartTime = findViewById(R.id.textViewStartTime);
         textViewEndTime = findViewById(R.id.textViewEndTime);
         linearLayoutTimePicker = findViewById(R.id.linearLayoutTimePicker);
+        newExam = findViewById(R.id.nieuwExamen);
         switchRegistrationsAllowedAfterEndTime = findViewById(R.id.switchRegistrationsAllowedAfterEndTime);
         buttonSetTime = findViewById(R.id.buttonSetTime);
         buttonNewExam = findViewById(R.id.buttonNewExam);
@@ -62,11 +64,13 @@ public class NewExamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 linearLayoutTimePicker.setVisibility(View.VISIBLE);
+                newExam.setVisibility(View.GONE);
                 clickedView = (TextView) v;
             }
         });
         textViewEndTime.setOnClickListener((View v) -> {
             linearLayoutTimePicker.setVisibility(View.VISIBLE);
+            newExam.setVisibility(View.GONE);
             clickedView = (TextView) v;
         });
         buttonSetTime.setOnClickListener((View v) -> {
@@ -82,6 +86,7 @@ public class NewExamActivity extends AppCompatActivity {
             }
             clickedView.setText(hour + ":" + minute);
             linearLayoutTimePicker.setVisibility(View.GONE);
+            newExam.setVisibility(View.VISIBLE);
         });
         buttonNewExam.setOnClickListener((View v) -> {
             initialize();
