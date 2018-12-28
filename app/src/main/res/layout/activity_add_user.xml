@@ -88,6 +88,16 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCamera"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:enabled="false"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:icon="@drawable/ic_camera_black_24dp"
+            android:onClick="OpenCameraActivity"
+            android:text="open camera"/>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAddUser"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -96,15 +106,6 @@
             app:icon="@drawable/ic_add"
             android:onClick="AddUserToDB"
             android:text="@string/add_user"/>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonCamera"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:enabled="false"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:icon="@drawable/ic_add"
-            android:onClick="OpenCameraActivity"
-            android:text="open camera"/>
 
     </LinearLayout>
     <ImageView
