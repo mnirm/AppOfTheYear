@@ -7,4 +7,6 @@
   <color name="lightGrey">#ededed</color>
   <color name="primaryTextColor">#ffffff</color>
   <color name="darkGrey">#455A64</color>
+  <color name="textColorGrey">#d7d7d7</color>
+  <color name="textColorDarkGrey">#939393</color>
 </resources>
