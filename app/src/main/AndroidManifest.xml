@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -45,12 +47,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jarno.oussama.com.examenmonitor.Activities.MainActivity" />
         </activity>
+
         <activity
             android:name=".Activities.StudentsListActivity"
             android:label="@string/title_activity_students_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".Activities.NewExamActivity" />
-        <activity android:name=".Activities.CheckInOutActivity">
+        <activity
+            android:name=".Activities.CheckInOutActivity"
+            android:label="@string/checkout">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -62,7 +68,9 @@
         <activity
             android:name=".Activities.MyExamsActivity"
             android:label="@string/title_activity_my_exams"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CameraActivity" />
+        <activity android:name=".Activities.ViewPictureActivity"></activity>
     </application>
 
 </manifest>
