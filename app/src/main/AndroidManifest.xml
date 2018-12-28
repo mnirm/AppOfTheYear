@@ -50,9 +50,15 @@
         <activity
             android:name=".Activities.StudentsListActivity"
             android:label="@string/title_activity_students_list"
+            android:parentActivityName=".Activities.MainActivity"
+            android:value="jarno.oussama.com.examenmonitor.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.NewExamActivity" />
-        <activity android:name=".Activities.CheckInOutActivity">
+        <activity
+            android:name=".Activities.CheckInOutActivity"
+            android:label="@string/checkout"
+            android:parentActivityName=".Activities.MainActivity"
+            android:value="jarno.oussama.com.examenmonitor.MainActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -64,6 +70,8 @@
         <activity
             android:name=".Activities.MyExamsActivity"
             android:label="@string/title_activity_my_exams"
+            android:parentActivityName=".Activities.MainActivity"
+            android:value="jarno.oussama.com.examenmonitor.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CameraActivity" />
         <activity android:name=".Activities.ViewPictureActivity"></activity>

@@ -108,6 +108,7 @@
             android:text="@string/add_user"/>
 
     </LinearLayout>
+
     <ImageView
         android:id="@+id/imageViewStudentPhoto"
         android:layout_width="match_parent"
