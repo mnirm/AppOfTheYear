@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/nieuwExamen">
 
         <TextView
@@ -97,7 +97,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TimePicker
             android:id="@+id/timePicker"

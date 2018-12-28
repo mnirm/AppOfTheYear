@@ -52,6 +52,7 @@ public class NewExamActivity extends AppCompatActivity {
         buttonSetTime = findViewById(R.id.buttonSetTime);
         buttonNewExam = findViewById(R.id.buttonNewExam);
         timePicker = findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
         startTime = new GregorianCalendar();
         startTime.set(Calendar.MILLISECOND,Calendar.getInstance().get(Calendar.MILLISECOND));
         endTime = new GregorianCalendar();
