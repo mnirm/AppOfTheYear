@@ -121,7 +121,7 @@
                         android:layout_height="64dp"
                         android:background="@drawable/circlebackgroundaccent"
                         android:padding="10dp"
-                        android:src="@drawable/ic_add_for_fab"></ImageView>
+                        android:src="@drawable/ic_add_for_fab"/>
 
                     <TextView
                         android:layout_width="wrap_content"
