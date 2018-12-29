@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,6 +19,8 @@ import jarno.oussama.com.examenmonitor.R;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 import android.widget.Toast;
 
@@ -24,6 +28,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
@@ -39,7 +44,7 @@ import jarno.oussama.com.examenmonitor.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int RC_SIGN_IN = 0;
-    private FirebaseAuth auth;
+    private FirebaseAuth mAuth;
 
     private View view;
     private DrawerLayout drawer;
@@ -69,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
-        auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
 
         } else {
             startActivityForResult(AuthUI.getInstance()
@@ -79,6 +84,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .build(), RC_SIGN_IN);
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            Uri photoUrl = user.getPhotoUrl();
+
+            boolean emailVerified = user.isEmailVerified();
+
+            String uid = user.getUid();
+
+            TextView textViewName = findViewById(R.id.textView_name);
+            textViewName.setText(name);
+            TextView textViewEmail = findViewById(R.id.textView_email);
+            textViewEmail.setText(email);
+        }
+
     }
 
     @Override

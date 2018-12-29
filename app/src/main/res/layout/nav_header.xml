@@ -8,10 +8,12 @@
     android:gravity="bottom">
 
     <ImageView
+        android:id="@+id/imageView_profilePic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher"/>
     <TextView
+        android:id="@+id/textView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
@@ -19,6 +21,7 @@
         android:textColor="@color/textColorGrey"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
     <TextView
+        android:id="@+id/textView_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/textColorDarkGrey"
