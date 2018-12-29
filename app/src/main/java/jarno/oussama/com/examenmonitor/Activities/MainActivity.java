@@ -48,34 +48,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private View view;
     private DrawerLayout drawer;
-
-
+    String name;
+    String email;
+    Uri photoUrl;
+    boolean emailVerified;
+    TextView textViewName,textViewEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
-        }
-
-
-        view = findViewById(android.R.id.content);
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
+            FirebaseUser user = mAuth.getCurrentUser();
+            name = user.getDisplayName();
+            email = user.getEmail();
+            photoUrl = user.getPhotoUrl();
+            emailVerified = user.isEmailVerified();
 
         } else {
             startActivityForResult(AuthUI.getInstance()
@@ -83,24 +74,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .setAvailableProviders(providers)
                     .build(), RC_SIGN_IN);
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-       }
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String name = user.getDisplayName();
-            String email = user.getEmail();
-            Uri photoUrl = user.getPhotoUrl();
-
-            boolean emailVerified = user.isEmailVerified();
-
-            String uid = user.getUid();
-
-            TextView textViewName = findViewById(R.id.textView_name);
-            textViewName.setText(name);
-            TextView textViewEmail = findViewById(R.id.textView_email);
-            textViewEmail.setText(email);
         }
-
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                textViewName =   drawerView.findViewById(R.id.textView_name);
+                textViewEmail = drawerView.findViewById(R.id.textView_email);
+                textViewEmail.setText(name);
+                textViewName.setText(email);
+            }
+        };
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
+        }
+        view = findViewById(android.R.id.content);
     }
 
     @Override
