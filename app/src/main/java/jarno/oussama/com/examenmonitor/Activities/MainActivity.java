@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-
+                //FirebaseAuth.getInstance().signOut();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
