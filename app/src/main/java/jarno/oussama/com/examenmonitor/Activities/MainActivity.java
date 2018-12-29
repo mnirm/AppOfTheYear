@@ -45,6 +45,8 @@ import jarno.oussama.com.examenmonitor.R;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int RC_SIGN_IN = 0;
     private FirebaseAuth mAuth;
+    List<AuthUI.IdpConfig> providers;
+
 
     private View view;
     private DrawerLayout drawer;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
+        providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
         mAuth = FirebaseAuth.getInstance();
@@ -102,7 +104,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-                //FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
+                startActivityForResult(AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(), RC_SIGN_IN);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -134,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void AddUserActivity(View view) {
-        Intent IntentAdduser = new Intent(this, AddUserActivity.class);
-        startActivity(IntentAdduser);
+        Intent AddUser = new Intent(this, AddUserActivity.class);
+        startActivity(AddUser);
     }
 
     public void StudentsListActivity(View view) {
