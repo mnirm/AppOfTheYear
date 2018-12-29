@@ -11,10 +11,14 @@ public class Student {
     private String CardIdNumber;
     private String FirstName;
     private String LastName;
-
+    private String ProfilePictureUrl;
     public Student() {
 
     }
+
+    public String getProfilePictureUrl() {return ProfilePictureUrl; }
+
+    public void setProfilePictureUrl(String profilePictureUrl) { ProfilePictureUrl = profilePictureUrl; }
 
     public int getStudentNumber() {
         return StudentNumber;

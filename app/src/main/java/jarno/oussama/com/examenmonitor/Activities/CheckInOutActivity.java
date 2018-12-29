@@ -61,11 +61,17 @@ public class CheckInOutActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        examsRef.child(examID).addListenerForSingleValueEvent(new ValueEventListener() {
+        examsRef.child(examID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                currentExam = dataSnapshot.getValue(Exam.class);
-                textViewExamTitle.setText(currentExam.getName());
+                if(dataSnapshot.exists()){
+                    currentExam = dataSnapshot.getValue(Exam.class);
+                    textViewExamTitle.setText(currentExam.getName());
+                }else{
+                    Intent examlist = new Intent(getApplicationContext(), MyExamsActivity.class);
+                    startActivity(examlist);
+                }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -88,14 +94,14 @@ public class CheckInOutActivity extends AppCompatActivity {
                 checkInOutEntry.setCardId(nfc.nfcID);
                 checkInOutEntry.setExamId(currentExam.getExamId());
                 checkInOutEntry.setTimeStamp(Calendar.getInstance().getTimeInMillis());
-                checkInRegistrationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                checkInRegistrationRef.child(checkInOutEntry.getExamId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(checkInOutEntry.getCheckInOutRegistrationId())) {
-                            checkOutRegistrationRef.child(checkInOutEntry.getCheckInOutRegistrationId()).setValue(checkInOutEntry);
+                        if (dataSnapshot.hasChild(checkInOutEntry.getCardId())) {
+                            checkOutRegistrationRef.child(checkInOutEntry.getExamId()).child(checkInOutEntry.getCardId()).setValue(checkInOutEntry);
                             Snackbar.make(view, nfc.nfcID + " uitgechecked", Snackbar.LENGTH_SHORT).show();
                         } else {
-                            checkInRegistrationRef.child(checkInOutEntry.getCheckInOutRegistrationId()).setValue(checkInOutEntry);
+                            checkInRegistrationRef.child(checkInOutEntry.getExamId()).child(checkInOutEntry.getCardId()).setValue(checkInOutEntry);
                             Snackbar.make(view, nfc.nfcID + " ingechecked", Snackbar.LENGTH_SHORT).show();
                         }
                     }

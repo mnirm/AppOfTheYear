@@ -1,11 +1,24 @@
 package jarno.oussama.com.examenmonitor.Activities;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import jarno.oussama.com.examenmonitor.CameraActivity;
+import jarno.oussama.com.examenmonitor.R;
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toolbar;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.navigation.NavigationView;
@@ -30,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private View view;
     private DrawerLayout drawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
         auth = FirebaseAuth.getInstance();
-        if (auth != null) {
+        if (auth.getCurrentUser() != null) {
 
         } else {
             startActivityForResult(AuthUI.getInstance()
@@ -64,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .setAvailableProviders(providers)
                     .build(), RC_SIGN_IN);
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        }
+       }
     }
 
     @Override
@@ -113,8 +127,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void NewExamActivity(View view) {
-        Intent StudentList = new Intent(this, NewExamActivity.class);
-        startActivity(StudentList);
+        Intent newExam = new Intent(this, NewExamActivity.class);
+        startActivity(newExam);
     }
 
     public void MyExamsActivity(View view) {

@@ -10,9 +10,6 @@ public class CheckInOutRegistration {
     String cardId;
     Long timeStamp;
     String examId;
-    public String getCheckInOutRegistrationId() {
-        return cardId+ "_" + examId;
-    }
     public String getExamId() {
         return examId;
     }

@@ -1,9 +1,5 @@
 package jarno.oussama.com.examenmonitor.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import jarno.oussama.com.examenmonitor.FirebaseDB.Exam;
-import jarno.oussama.com.examenmonitor.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import androidx.appcompat.app.AppCompatActivity;
+import jarno.oussama.com.examenmonitor.FirebaseDB.Exam;
+import jarno.oussama.com.examenmonitor.R;
+
 public class NewExamActivity extends AppCompatActivity {
     EditText editTextExamName;
     TextView textViewStartTime;
@@ -28,6 +28,7 @@ public class NewExamActivity extends AppCompatActivity {
     Switch switchRegistrationsAllowedAfterEndTime;
     TimePicker timePicker;
     LinearLayout linearLayoutTimePicker;
+    LinearLayout newExam;
     Button buttonSetTime;
     Button buttonNewExam;
     TextView clickedView;
@@ -46,10 +47,12 @@ public class NewExamActivity extends AppCompatActivity {
         textViewStartTime = findViewById(R.id.textViewStartTime);
         textViewEndTime = findViewById(R.id.textViewEndTime);
         linearLayoutTimePicker = findViewById(R.id.linearLayoutTimePicker);
+        newExam = findViewById(R.id.nieuwExamen);
         switchRegistrationsAllowedAfterEndTime = findViewById(R.id.switchRegistrationsAllowedAfterEndTime);
         buttonSetTime = findViewById(R.id.buttonSetTime);
         buttonNewExam = findViewById(R.id.buttonNewExam);
         timePicker = findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
         startTime = new GregorianCalendar();
         startTime.set(Calendar.MILLISECOND,Calendar.getInstance().get(Calendar.MILLISECOND));
         endTime = new GregorianCalendar();
@@ -62,11 +65,13 @@ public class NewExamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 linearLayoutTimePicker.setVisibility(View.VISIBLE);
+                newExam.setVisibility(View.GONE);
                 clickedView = (TextView) v;
             }
         });
         textViewEndTime.setOnClickListener((View v) -> {
             linearLayoutTimePicker.setVisibility(View.VISIBLE);
+            newExam.setVisibility(View.GONE);
             clickedView = (TextView) v;
         });
         buttonSetTime.setOnClickListener((View v) -> {
@@ -82,6 +87,7 @@ public class NewExamActivity extends AppCompatActivity {
             }
             clickedView.setText(hour + ":" + minute);
             linearLayoutTimePicker.setVisibility(View.GONE);
+            newExam.setVisibility(View.VISIBLE);
         });
         buttonNewExam.setOnClickListener((View v) -> {
             initialize();
@@ -90,10 +96,9 @@ public class NewExamActivity extends AppCompatActivity {
                 exam.setEndTime(endTime.getTimeInMillis());
                 exam.setName(examName);
                 exam.setRegistrationAfterEndTimeAllowed(switchRegistrationsAllowedAfterEndTime.isChecked());
-                exam.setExamId(examName +"_"+startTime.get(Calendar.DAY_OF_MONTH)+"_"+ startTime.get(Calendar.HOUR));
+                exam.setExamId(examName.replaceAll("\\s","")+"_"+startTime.get(Calendar.DAY_OF_MONTH)+"_"+ startTime.get(Calendar.HOUR));
                 exam.setCreatedByUid(auth.getCurrentUser().getUid());
                 examsRef.child(auth.getCurrentUser().getUid()).child(exam.getExamId()).setValue(exam);
-               // examsRef.child(exam.getExamId()).setValue(exam);
                 Intent intent = new Intent(this, CheckInOutActivity.class).putExtra("EXAM_ID", exam.getExamId());
                 startActivity(intent);
             }
@@ -107,7 +112,6 @@ public class NewExamActivity extends AppCompatActivity {
         }
         return true;
     }
-
     private void initialize() {
         examName = editTextExamName.getText().toString().trim();
     }
