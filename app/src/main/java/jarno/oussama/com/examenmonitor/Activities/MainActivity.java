@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivityForResult(AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
+                        .setIsSmartLockEnabled(false)
                         .build(), RC_SIGN_IN);
                 break;
         }
