@@ -1,77 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textViewStudentName"
-        style="@style/student_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewStudentNumber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="oussama" />
+            <TextView
+                android:id="@+id/textViewStudentName"
+                style="@style/student_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="oussama" />
 
 
-    <TextView
-        android:id="@+id/textViewStudentLastName"
-        style="@style/student_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewStudentName"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Es-Salhi" />
+            <TextView
+                android:id="@+id/textViewStudentLastName"
+                style="@style/student_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                tools:text="Es-Salhi" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewStudentNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="S101329" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textViewStudentCardId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStudentName"
-        tools:text="AD:E4:26:F1" />
+            <TextView
+                android:id="@+id/textViewStudentNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="S101329" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="-"/>
+
+            <TextView
+                android:id="@+id/textViewStudentCardId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                tools:text="AD:E4:26:F1" />
+        </LinearLayout>
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:background="@color/lightGrey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStudentCardId" />
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/lightGrey" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
