@@ -28,4 +28,9 @@ public class CheckInOutRegistration {
     public void setCardId(String cardId) {
         this.cardId = cardId;
     }
+
+    public enum RegistrationType {
+        checkIn,
+        checkOut
+    }
 }
