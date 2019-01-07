@@ -35,4 +35,5 @@
     <string name="no_exams_textview">Je hebt nog geen examens aangemaakt</string>
     <string name="checkout">Check in/out</string>
     <string name="unknown_student_message">Deze student is onbekend</string>
+    <string name="scan_student_card_to_register">Scan uw studentenkaart om te registreren</string>
 </resources>
