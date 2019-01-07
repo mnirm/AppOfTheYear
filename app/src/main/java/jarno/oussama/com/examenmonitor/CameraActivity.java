@@ -105,7 +105,7 @@ public class CameraActivity extends AppCompatActivity {
             try {
                 FileOutputStream outputStream = new FileOutputStream(savedPhoto.getPath());
                 Bitmap photoBitmap = BitmapFactory.decodeByteArray(photo,0,photo.length);
-                photoBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+                photoBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
                 outputStream.close();
                 new Intent( Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(savedPhoto) );
                 Intent returnIntent = new Intent();

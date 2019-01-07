@@ -12,7 +12,7 @@
     <string name="studentnumber_required"> studenten nummer is verplicht </string>
     <string name="add_user">VOEG TOE</string>
     <string name="scan_card_first">Scan eerst de studenten kaart</string>
-    <string name="button_add_user">Add user</string>
+    <string name="button_add_user">Nieuwe student</string>
     <string name="label_add_user">Users</string>
     <string name="add_user_subtext">Voeg een student toe</string>
     <string name="title_activity_students_list">Students</string>

@@ -36,14 +36,15 @@ public class AddUserActivity extends AppCompatActivity {
     TextView nfcStatusTextView;
     EditText nameEditText, studentNumberEditText, lastNameEditText;
     ImageView imageView;
-    String name, lastName;
-    String pictureDownloadUrl;
-    int studentNumber;
+    String name, lastName,pictureDownloadUrl;
     NFC nfc;
     View view;
     Button addButton, cameraButton;
     DatabaseReference studentsRef = FirebaseDatabase.getInstance().getReference("students");
+    String PhotoPath;
     Bitmap photo;
+    int studentNumber;
+    boolean cameraButtonIsEnabled, addUserButtonIsEnabled;
     private static final int Camera_Intent_Result_Code = 5;
     private static final int Picture_PREVIEW_Result_Code = 6;
 
@@ -63,26 +64,26 @@ public class AddUserActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             nfc.nfcID = savedInstanceState.getString("NFC_ID");
             nfcStatusTextView.setText(nfc.nfcID);
-            addButton.setEnabled(true);
+            cameraButton.setEnabled(savedInstanceState.getBoolean("CAMERA_BUTTON_STATUS"));
+            addButton.setEnabled(savedInstanceState.getBoolean("ADDUSER_BUTTON_STATUS"));
+            InitializeImageView( savedInstanceState.getString("PHOTO_PATH"));
         }
         studentNumberEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().length() == 0) {
+                    cameraButtonIsEnabled = false;
                     cameraButton.setEnabled(false);
                 } else {
                     cameraButton.setEnabled(true);
+                    cameraButtonIsEnabled = true;
                 }
             }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-                //
             }
         });
     }
@@ -96,8 +97,13 @@ public class AddUserActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putBoolean("ADDUSER_BUTTON_STATUS", addUserButtonIsEnabled);
+        outState.putBoolean("CAMERA_BUTTON_STATUS", cameraButtonIsEnabled);
         if (nfc != null) {
             outState.putString("NFC_ID", nfc.nfcID);
+        }
+        if(PhotoPath != null){
+            outState.putString("PHOTO_PATH", PhotoPath);
         }
     }
 
@@ -106,27 +112,27 @@ public class AddUserActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         nfc.setResolveIntent(intent, (boolean isValid) -> {
             if (isValid) {
+                addUserButtonIsEnabled = true;
                 addButton.setEnabled(true);
                 nfcStatusTextView.setText(nfc.nfcID);
             } else {
+                addUserButtonIsEnabled = false;
                 Snackbar.make(view, "ongeldige kaart", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
 
     public void AddUserToDB(View view) {
-        Initialize();
+        InitializeStudent();
         Student student = new Student();
-        if (validate()) {
-            // uploaden picture to firebase and get url
+        if (validateStudent()) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            photo.compress(Bitmap.CompressFormat.JPEG, 90, baos);
             byte[] data = baos.toByteArray();
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Student_profile_pictures").child(studentNumber + ".jpg");
             UploadTask uploadTask = storageReference.putBytes(data);
             uploadTask.addOnFailureListener(exception -> Snackbar.make(view, "Het uploaden van de foto is mislukt", Snackbar.LENGTH_SHORT).show()).addOnSuccessListener(taskSnapshot -> {
                 storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                    Log.d("retrieve_download_url", "onSuccess: uri= " + uri.toString());
                     pictureDownloadUrl = uri.toString();
                     student.setFirstName(name);
                     student.setLastName(lastName);
@@ -144,11 +150,7 @@ public class AddUserActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == Camera_Intent_Result_Code) {
             if (resultCode == Activity.RESULT_OK) {
-                String PhotoPath = data.getStringExtra("PHOTO_PATH");
-                photo = BitmapFactory.decodeFile(PhotoPath);
-                imageView.setImageBitmap(photo);
-                imageView.setVisibility(View.VISIBLE);
-                imageView.setOnClickListener(v -> startActivityForResult(new Intent(getApplicationContext(), ViewPictureActivity.class).putExtra("PHOTO_PATH", PhotoPath), Picture_PREVIEW_Result_Code));
+                InitializeImageView(data.getStringExtra("PHOTO_PATH"));
             }
         }
         if (requestCode == Picture_PREVIEW_Result_Code) {
@@ -161,7 +163,7 @@ public class AddUserActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validate() {
+    private boolean validateStudent() {
         if (name.isEmpty()) {
             nameEditText.setError(getResources().getString(R.string.name_required));
             return false;
@@ -181,7 +183,7 @@ public class AddUserActivity extends AppCompatActivity {
         return true;
     }
 
-    public void Initialize() {
+    public void InitializeStudent() {
         name = nameEditText.getText().toString().trim();
         lastName = lastNameEditText.getText().toString().trim();
         studentNumber = Integer.parseInt(studentNumberEditText.getText().toString());
@@ -189,9 +191,16 @@ public class AddUserActivity extends AppCompatActivity {
 
     public void OpenCameraActivity(View view) {
 
-        startActivityForResult(new Intent(this, CameraActivity.class).putExtra("STUDENT_NUMBER", Integer.parseInt(studentNumberEditText.getText().toString())), Camera_Intent_Result_Code);
+        startActivityForResult(new Intent(this, CameraActivity.class)
+                .putExtra("STUDENT_NUMBER", Integer.parseInt(studentNumberEditText.getText().toString())), Camera_Intent_Result_Code);
     }
-
+    public void InitializeImageView(String photoPath){
+        PhotoPath = photoPath;
+        photo = BitmapFactory.decodeFile(PhotoPath);
+        imageView.setImageBitmap(photo);
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setOnClickListener(v -> startActivityForResult(new Intent(getApplicationContext(), ViewPictureActivity.class).putExtra("PHOTO_PATH", PhotoPath), Picture_PREVIEW_Result_Code));
+    }
 }
 
     
