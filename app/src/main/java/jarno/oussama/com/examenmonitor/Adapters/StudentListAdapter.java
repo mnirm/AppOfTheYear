@@ -47,7 +47,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
 
      class ViewHolder extends RecyclerView.ViewHolder {
-         TextView FirstName,LastName,studentNumber,studentCardId;
+         TextView FirstName,LastName,studentNumber;
          ImageView ProfilePic;
          ViewHolder(View itemView) {
             super(itemView);

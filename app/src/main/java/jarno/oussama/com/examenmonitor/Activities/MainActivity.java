@@ -122,10 +122,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 //user signed in
+                if (mAuth.getCurrentUser() != null) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    name = user.getDisplayName();
+                    email = user.getEmail();
+                    photoUrl = user.getPhotoUrl();
+                    emailVerified = user.isEmailVerified();
+
+                }
                 Snackbar.make(view, "user signed in" , Snackbar.LENGTH_LONG);
             } else {
                 // user not authenticated
                 Log.i("auth", "not authenticated");
+                System.exit(1);
             }
         }
     }
