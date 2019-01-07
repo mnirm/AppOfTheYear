@@ -2,10 +2,18 @@ package jarno.oussama.com.examenmonitor.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,6 +40,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         holder.LastName.setText(students.get(position).getLastName());
         holder.studentNumber.setText(Integer.toString(students.get(position).getStudentNumber()));
         holder.studentCardId.setText(students.get(position).getCardIdNumber());
+        Picasso.get().load(students.get(position).getProfilePictureUrl()).into(holder.ProfilePic);
     }
 
     @Override
@@ -42,12 +51,14 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
      class ViewHolder extends RecyclerView.ViewHolder {
          TextView FirstName,LastName,studentNumber,studentCardId;
+         ImageView ProfilePic;
          ViewHolder(View itemView) {
             super(itemView);
             FirstName = itemView.findViewById(R.id.textViewStudentName);
             LastName = itemView.findViewById(R.id.textViewStudentLastName);
             studentNumber = itemView.findViewById(R.id.textViewStudentNumber);
             studentCardId = itemView.findViewById(R.id.textViewStudentCardId);
+            ProfilePic = itemView.findViewById(R.id.profile_image);
         }
     }
 }

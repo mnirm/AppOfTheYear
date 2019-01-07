@@ -124,9 +124,7 @@ public class AddUserActivity extends AppCompatActivity {
             byte[] data = baos.toByteArray();
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Student_profile_pictures").child(studentNumber + ".jpg");
             UploadTask uploadTask = storageReference.putBytes(data);
-            uploadTask.addOnFailureListener(exception -> {
-                Snackbar.make(view, "Het uploaden van de foto is mislukt", Snackbar.LENGTH_SHORT).show();
-            }).addOnSuccessListener(taskSnapshot -> {
+            uploadTask.addOnFailureListener(exception -> Snackbar.make(view, "Het uploaden van de foto is mislukt", Snackbar.LENGTH_SHORT).show()).addOnSuccessListener(taskSnapshot -> {
                 storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                     Log.d("retrieve_download_url", "onSuccess: uri= " + uri.toString());
                     pictureDownloadUrl = uri.toString();
