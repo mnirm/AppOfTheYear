@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">ExamenMonitor</string>
-    <string name="Hold_your_card_against_the_reader_to_scan">Hold your card against the reader to scan</string>
+    <string name="Hold_your_card_against_the_reader_to_scan">Plaats de kaart tegen de scanner</string>
     <string name="Scan">Scan</string>
     <string name="add_user_title">Voeg een student toe</string>
     <string name="name_placeholder">Naam</string>
     <string name="lastname_placeholder">Achternaam</string>
     <string name="s_number_placeholder">Student nummer</string>
-    <string name="name_required"> naam is verplicht </string>
+    <string name="name_required"> Naam is verplicht </string>
     <string name="exam_name_required"> Examen naam is verplicht </string>
-    <string name="last_name_required"> achternaam is verplicht </string>
-    <string name="studentnumber_required"> studenten nummer is verplicht </string>
+    <string name="last_name_required"> Achternaam is verplicht </string>
+    <string name="studentnumber_required"> Studenten nummer is verplicht </string>
     <string name="add_user">VOEG TOE</string>
     <string name="scan_card_first">Scan eerst de studenten kaart</string>
     <string name="button_add_user">Nieuwe student</string>
@@ -29,7 +29,7 @@
     <string name="action_settings">Settings</string>
     
     <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_close">Sluit navigation drawer</string>
 
 
     <string name="no_exams_textview">Je hebt nog geen examens aangemaakt</string>
