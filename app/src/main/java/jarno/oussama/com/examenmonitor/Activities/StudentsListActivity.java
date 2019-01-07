@@ -65,6 +65,7 @@ public class StudentsListActivity extends AppCompatActivity {
                     student.setLastName(studentFBDB.getLastName());
                     student.setCardIdNumber(studentFBDB.getCardIdNumber());
                     student.setStudentNumber(studentFBDB.getStudentNumber());
+                    student.setProfilePictureUrl(studentFBDB.getProfilePictureUrl());
                     students.add(student);
                 }
                 adapter = new StudentListAdapter(students);

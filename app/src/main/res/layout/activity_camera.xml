@@ -15,7 +15,7 @@
         app:camera_flash="auto"
         app:camera_facing="back"
         app:camera_focus="continuous"
-        app:camera_permissions="camera" />
+        app:camera_permissions="camera"/>
 
     <ImageView
         android:id="@+id/TakePic"
@@ -32,6 +32,6 @@
         android:src="@drawable/ic_camera_white_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></ImageView>
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
