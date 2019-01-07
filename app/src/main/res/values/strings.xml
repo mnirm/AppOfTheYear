@@ -34,4 +34,5 @@
 
     <string name="no_exams_textview">Je hebt nog geen examens aangemaakt</string>
     <string name="checkout">Check in/out</string>
+    <string name="unknown_student_message">Deze student is onbekend</string>
 </resources>

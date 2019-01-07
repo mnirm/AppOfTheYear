@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import jarno.oussama.com.examenmonitor.FirebaseDB.Exam;
 import jarno.oussama.com.examenmonitor.FirebaseDB.CheckInOutRegistration;
+import jarno.oussama.com.examenmonitor.FirebaseDB.Student;
 import jarno.oussama.com.examenmonitor.Nfc.NFC;
 import jarno.oussama.com.examenmonitor.R;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -28,8 +30,9 @@ public class CheckInOutActivity extends AppCompatActivity {
     DatabaseReference examsRef;
     DatabaseReference checkInRegistrationRef;
     DatabaseReference checkOutRegistrationRef;
+    DatabaseReference studentsRef;
     Exam currentExam;
-    TextView textViewExamTitle;
+    TextView textViewExamTitle, textViewRegistrationFeedback;
     NFC nfc;
     View view;
     FirebaseAuth auth;
@@ -39,12 +42,14 @@ public class CheckInOutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_out);
         textViewExamTitle = findViewById(R.id.textViewExamTitle);
+        textViewRegistrationFeedback = findViewById(R.id.textViewRegistrationFeedback);
         Intent intent = getIntent();
         examID = intent.getStringExtra("EXAM_ID");
         auth = FirebaseAuth.getInstance();
         examsRef = firebaseDatabase.getReference("exams").child(auth.getCurrentUser().getUid());
         checkInRegistrationRef = firebaseDatabase.getReference("checkInRegistrations");
         checkOutRegistrationRef = firebaseDatabase.getReference("checkOutRegistrations");
+        studentsRef = firebaseDatabase.getReference("students");
         view = findViewById(android.R.id.content);
         nfc = new NFC(this, this, view);
         if (savedInstanceState != null) {
@@ -99,10 +104,34 @@ public class CheckInOutActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(checkInOutEntry.getCardId())) {
                             checkOutRegistrationRef.child(checkInOutEntry.getExamId()).child(checkInOutEntry.getCardId()).setValue(checkInOutEntry);
-                            Snackbar.make(view, nfc.nfcID + " uitgechecked", Snackbar.LENGTH_SHORT).show();
+                            studentsRef.child(nfc.nfcID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Student student = dataSnapshot.getValue(Student.class);
+                                    registrationFeedback(CheckInOutRegistration.RegistrationType.checkOut,student);
+                                    registrationTextViewAnimation();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    textViewRegistrationFeedback.setText(getString(R.string.unknown_student_message));
+                                }
+                            });
                         } else {
                             checkInRegistrationRef.child(checkInOutEntry.getExamId()).child(checkInOutEntry.getCardId()).setValue(checkInOutEntry);
-                            Snackbar.make(view, nfc.nfcID + " ingechecked", Snackbar.LENGTH_SHORT).show();
+                            studentsRef.child(nfc.nfcID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Student student = dataSnapshot.getValue(Student.class);
+                                    registrationFeedback(CheckInOutRegistration.RegistrationType.checkIn,student);
+                                    registrationTextViewAnimation();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    textViewRegistrationFeedback.setText(getString(R.string.unknown_student_message));
+                                }
+                            });
                         }
                     }
 
@@ -116,4 +145,23 @@ public class CheckInOutActivity extends AppCompatActivity {
             }
         });
     }
+    private void registrationFeedback(CheckInOutRegistration.RegistrationType registrationType, Student student){
+        if (registrationType == CheckInOutRegistration.RegistrationType.checkIn)
+            textViewRegistrationFeedback.setText(String.format("Je hebt successvol ingecheckt %s, veel succes met %s", student.getFirstName(), currentExam.getName()));
+        else
+            textViewRegistrationFeedback.setText(String.format("Je hebt successvol uitgecheckt %s, Tot ziens!", student.getFirstName()));
+    }
+
+    private void registrationTextViewAnimation() {
+        AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
+        AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ;
+        textViewRegistrationFeedback.startAnimation(fadeIn);
+        textViewRegistrationFeedback.startAnimation(fadeOut);
+        fadeIn.setDuration(800);
+        fadeIn.setFillAfter(true);
+        fadeOut.setDuration(800);
+        fadeOut.setFillAfter(true);
+        fadeOut.setStartOffset(3200+fadeIn.getStartOffset());
+    }
+
 }
