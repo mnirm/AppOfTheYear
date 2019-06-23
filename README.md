@@ -17,3 +17,5 @@ The application has the possibility to add more students to the userdatabase.
 - Firebase (Authentication, File storage)
 - NFC
 - Camera
+- Material Design (Google)
+- Android X
