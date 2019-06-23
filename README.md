@@ -1,18 +1,7 @@
 # AppOfTheYear
-Android qr (+ elektronica)
--Barcode
+Android application written in Java.
 
--NFC = Serial number (niet naam/foto):
-Oplossing1; scant neemt foto + voert naam/studentnr, koppelt aan serial no.
-Oplossing2; foto nemen van studentenkaart informatie eruit halen
+Exam student card scanner. Teachers are able to create an exam with a date and timebounds for example 09/10 10:00-12:00(in 24:00 notation).
+Users can scan their studentcard on the NFC scanner of the smartphone or smarttablet and put themselft on present instead of needing to put there signature anywhere in the exam room. At the end exam student logs off with scanning again a second time. Teachers/overseers can look at scanning times through a website. They alo can see who's attending the exam at that time or who's scanned out.
 
-Opslaan op backend???
-
-Doel: 
-Examen binnen => scant
-Examen afgeven => scant
-
-Code:
-
-Naming activities: ExampleActivity
-Naming strings: example_button_test
+The application has the possibility to add more students to the userdatabase.
