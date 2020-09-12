@@ -3,7 +3,7 @@ Android application written in Java.
 Mobile development exercise for college 2018-2019.
 
 ## Team
-> @jarnomehj  
+> @mnirm 
 > @Oussie00  
 
 ## Summary
